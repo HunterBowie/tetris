@@ -61,27 +61,27 @@ int SHAPE_DATA[7][4][4][4] = {
 {
     {
         {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 1, 0, 0},
+        {0, 1, 1, 1},
         {0, 0, 0, 0}
     },
     {
         {0, 0, 0, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 1, 0, 0},
+        {0, 1, 0, 0}
+    },
+    {
+        {0, 0, 0, 0},
+        {0, 1, 1, 1},
+        {0, 0, 0, 1},
         {0, 0, 0, 0}
     },
     {
         {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {1, 1, 0, 0}
     }
 },
 {
@@ -255,7 +255,7 @@ void _mapPiece(Game *game) {
 Piece _getRandomPiece(void) {
     srand(time(NULL));
     Shape shape = rand() % 7;
-    Color *color = COLORS[rand() % 6];    
+    Color *color = RAINBOW_COLORS[rand() % 6];    
     Piece piece = {.color = color, .shape = shape,
     .row = 0, .col = 0, .rotation = 0};
     return piece;

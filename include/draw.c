@@ -10,6 +10,8 @@ Color BLACK = {.r = 0, .g = 0, .b = 0};
 Color YELLOW = {.r = 255, .g = 255, .b = 0};
 
 Color* COLORS[6] = {&BLUE, &GREEN, &RED, &WHITE, &BLACK, &YELLOW};
+Color* RAINBOW_COLORS[4] = {&BLUE, &GREEN, &RED, &YELLOW};
+
 
 void drawFill(SDL_Renderer *renderer, Color *color) {
     SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, 255);
