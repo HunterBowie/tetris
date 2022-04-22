@@ -1,0 +1,47 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Compile C",
+			"command": "gcc main.c -o play",
+			"args": [
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/gcc"
+		},
+		{
+			"type": "shell",
+			"label": "Compile C - Include SDL",
+			"command": "gcc main.c include/draw.c include/app.c include/tetris.c -o play -I include -L lib -l SDL2-2.0.0",
+			"args": [
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/gcc"
+		},
+		{
+			"type": "shell",
+			"label": "Run C",
+			"command": "./play",
+			"args": [
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/gcc"
+		},
+	]
+}
