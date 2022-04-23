@@ -7,10 +7,8 @@ Color GREEN = {.r = 0, .g = 255, .b = 0};
 Color RED = {.r = 255, .g = 0, .b = 0};
 Color WHITE = {.r = 255, .g = 255, .b = 255};
 Color BLACK = {.r = 0, .g = 0, .b = 0};
-Color YELLOW = {.r = 255, .g = 255, .b = 0};
 
-Color* COLORS[6] = {&BLUE, &GREEN, &RED, &WHITE, &BLACK, &YELLOW};
-Color* RAINBOW_COLORS[4] = {&BLUE, &GREEN, &RED, &YELLOW};
+Color* COLORS[5] = {&BLUE, &GREEN, &RED, &WHITE, &BLACK};
 
 
 void drawFill(SDL_Renderer *renderer, Color *color) {

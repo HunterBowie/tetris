@@ -13,10 +13,8 @@ Color GREEN;
 Color RED;
 Color WHITE;
 Color BLACK;
-Color YELLOW;
 
-Color* COLORS[6];
-Color* RAINBOW_COLORS[4];
+Color* COLORS[5];
 
 void drawFill(SDL_Renderer *renderer, Color *color);
 void drawRect(SDL_Renderer *renderer, SDL_Rect *rect, Color *color, int alpha);

@@ -88,118 +88,129 @@ int SHAPE_DATA[7][4][4][4] = {
     {
         {0, 0, 0, 0},
         {0, 1, 1, 0},
+        {1, 1, 0, 0},
+        {0, 0, 0, 0}
+    },
+    {
+        {0, 1, 0, 0},
         {0, 1, 1, 0},
+        {0, 0, 1, 0},
         {0, 0, 0, 0}
     },
     {
         {0, 0, 0, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {1, 1, 0, 0},
         {0, 0, 0, 0}
     },
     {
-        {0, 0, 0, 0},
+        {0, 1, 0, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 0, 1, 0},
         {0, 0, 0, 0}
+    }
+},
+{
+    {
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {0, 1, 0, 0}
     },
     {
         {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {1, 1, 1, 1},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    },
+    {
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {0, 1, 0, 0}
+    },
+    {
+        {0, 0, 0, 0},
+        {1, 1, 1, 1},
+        {0, 0, 0, 0},
         {0, 0, 0, 0}
     }
 },
 {
     {
         {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
+        {1, 1, 0, 0},
         {0, 1, 1, 0},
         {0, 0, 0, 0}
     },
     {
-        {0, 0, 0, 0},
+        {0, 0, 1, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 1, 0, 0},
         {0, 0, 0, 0}
     },
     {
         {0, 0, 0, 0},
+        {1, 1, 0, 0},
         {0, 1, 1, 0},
+        {0, 0, 0, 0}
+    },
+    {
+        {0, 0, 1, 0},
         {0, 1, 1, 0},
+        {0, 1, 0, 0},
         {0, 0, 0, 0}
     }
 },
 {
     {
+        {0, 1, 0, 0},
+        {1, 1, 1, 0},
         {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    },
+    {
+        {0, 1, 0, 0},
         {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 1, 0, 0},
         {0, 0, 0, 0}
     },
     {
         {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {1, 1, 1, 0},
+        {0, 1, 0, 0},
         {0, 0, 0, 0}
     },
     {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    }
-},
-{
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
-        {0, 0, 0, 0}
-    },
-    {
-        {0, 0, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 1, 0},
+        {0, 1, 0, 0},
+        {1, 1, 0, 0},
+        {0, 1, 0, 0},
         {0, 0, 0, 0}
     }
 }
 };
 
+Color T_BLUE = {.r = 80, .g = 0 , .b = 255};
+Color T_RED = {.r = 255, .g = 0 , .b = 60};
+Color T_YELLOW = {.r = 255, .g = 230 , .b = 0};
+Color T_ORANGE = {.r = 255, .g = 110 , .b = 0};
+Color T_GREEN = {.r = 80, .g = 240 , .b = 20};
+Color T_PURPLE = {.r = 160, .g = 30 , .b = 220};
+
+Color *T_COLORS[6] = {&T_BLUE, &T_RED, &T_YELLOW, &T_GREEN, &T_PURPLE, &T_ORANGE};
+
+
+
 
 
 void _renderPiece(SDL_Renderer *renderer, int x, int y, Game *game) {
-
     int row = game->piece.row;
     int col = game->piece.col;
     int initialCol = col;
     for (int shapeRow = 0; shapeRow < 4; shapeRow++) {
         for (int shapeCol = 0; shapeCol < 4; shapeCol++) {
             if (SHAPE_DATA[game->piece.shape][game->piece.rotation][shapeRow][shapeCol]) {
+                
                 SDL_Rect rect = {
                 .x = x+col*(game->grid.size+game->grid.margin),
                 .y = y+row*(game->grid.size+game->grid.margin),
@@ -252,17 +263,22 @@ void _mapPiece(Game *game) {
     }
 }
 
-Piece _getRandomPiece(void) {
-    srand(time(NULL));
+int _isPieceAllowed(Grid *grid, Piece *piece) {
+
+}
+
+Piece _getNewPiece(void) {
     Shape shape = rand() % 7;
-    Color *color = RAINBOW_COLORS[rand() % 6];    
+    Color *color = T_COLORS[rand() % 6];    
+    int col = rand() % GRID_COLS - 4;
     Piece piece = {.color = color, .shape = shape,
     .row = 0, .col = 0, .rotation = 0};
     return piece;
 }
 
 void initGame(Game *game) {
-    Piece piece = {.row = 0, .col = 0, .rotation = 0, .shape = L_SHAPE, .color = &RED};
+    srand(time(NULL));
+    Piece piece = _getNewPiece();
     Grid grid = {.margin = 1, .size = 25, .map = {
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
@@ -285,12 +301,13 @@ void initGame(Game *game) {
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE}
     }};
-    Piece nextPiece = _getRandomPiece();
+    Piece nextPiece = _getNewPiece();
     game->grid = grid;
     game->piece = piece;
     game->nextPiece = nextPiece;
     game->score = 0;
-    game->_gTimer = 0;
+    game->_gTimer = clock();
+    game->running = 1;
 }
 
 void rotatePiece(Game *game, int amount) {
@@ -304,8 +321,40 @@ void rotatePiece(Game *game, int amount) {
 }
 
 void movePiece(Game *game, int rowChange, int colChange) {
-    game->piece.col += colChange;
-    game->piece.row += rowChange;
+    int changeRow = 1;
+    int changeCol = 1;
+    int row = game->piece.row;
+    int col = game->piece.col;
+    int initialCol = col;
+    for (int shapeRow = 0; shapeRow < 4; shapeRow++) {
+        for (int shapeCol = 0; shapeCol < 4; shapeCol++) {
+            if (SHAPE_DATA[game->piece.shape][game->piece.rotation][shapeRow][shapeCol]) {
+                if (row + rowChange > GRID_ROWS - 1) {
+                    changeRow = 0;
+                }
+                else if (game->grid.map[row + rowChange][col] != &WHITE) {
+                    changeRow = 0;
+                }
+                if (col + colChange > GRID_COLS - 1 || col + colChange < 0) {
+                    changeCol = 0;
+                }
+                else if (game->grid.map[row][col + colChange] != &WHITE) {
+                    changeCol = 0;
+                }
+                
+            }
+        col++;
+        }
+    col = initialCol;
+    row++;
+    }
+    if (changeCol) {
+        game->piece.col += colChange;
+    }
+    if (changeRow) {
+        game->piece.row += rowChange;
+    }
+    
 }
 
 void groundPiece(Game *game) {
@@ -316,14 +365,18 @@ void updateGame(Game *game) {
     if (_isPieceGrounded(game)) {
         _mapPiece(game);
         game->piece = game->nextPiece;
-        Piece piece = _getRandomPiece();
-        game->nextPiece = piece;
+        game->nextPiece = _getNewPiece();
 
     }
-    if (clock() - game->_gTimer > 80000) {
+
+    if ((double) (clock() - game->_gTimer) / CLOCKS_PER_SEC > .1) {
         game->_gTimer = clock();
         game->piece.row += 1;
     }
+}
+
+int isGameOver(Game *game) {
+    return 0;
 }
 
 
