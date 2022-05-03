@@ -3,8 +3,10 @@
 #include "draw.h"
 #include <SDL2/SDL.h>
 #include <time.h>
-#define GRID_ROWS 20
+#define GRID_ROWS 22
 #define GRID_COLS 10
+#define RENDER_ROW_START 3
+#define FALLING_DELAY 0.05
 
 typedef enum Shape {
     O_SHAPE,
@@ -31,7 +33,7 @@ typedef struct Grid {
 } Grid;
 
 typedef struct Game {
-    int running;
+    int gameover;
     Grid grid;
     Piece piece;
     Piece nextPiece;
@@ -41,7 +43,7 @@ typedef struct Game {
 
 void initGame(Game *game);
 void rotatePiece(Game *game, int amount);
-void movePiece(Game *game, int rowChange, int colChange);
+int movePiece(Game *game, int rowChange, int colChange);
 void groundPiece(Game *game);
 void updateGame(Game *game);
 int isGameOver(Game *game);

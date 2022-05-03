@@ -60,8 +60,13 @@ int main(int argc, char *argv[]) {
 
         }
         updateGame(&game);
-        renderGrid(app.renderer, WIDTH/2-(((game.grid.size+game.grid.margin)*GRID_COLS)/2), 10, &game);
+        renderGrid(app.renderer, WIDTH/2-(((game.grid.size+game.grid.margin)*GRID_COLS)/2), -70, &game);
         SDL_RenderPresent(app.renderer);
+
+        if (game.gameover) {
+            quit = 1;
+            printf("Game Over");
+        }
         
         
         
