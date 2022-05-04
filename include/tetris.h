@@ -6,7 +6,10 @@
 #define GRID_ROWS 22
 #define GRID_COLS 10
 #define RENDER_ROW_START 3
-#define FALLING_DELAY 0.05
+#define START_FALLING_DELAY  0.05
+#define FALLING_DELAY_CHANGE 0.01
+#define FALLING_DELAY_MIN    0.01
+#define LINES_PER_LEVEL 10
 
 typedef enum Shape {
     O_SHAPE,
@@ -38,6 +41,9 @@ typedef struct Game {
     Piece piece;
     Piece nextPiece;
     int score;
+    int level;
+    int linesCleared;
+    float fallingDelay;
     clock_t _gTimer;
 } Game;
 

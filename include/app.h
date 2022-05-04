@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+
 #ifndef APP_GUARD
 #define APP_GUARD
 

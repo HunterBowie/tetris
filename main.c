@@ -60,12 +60,16 @@ int main(int argc, char *argv[]) {
 
         }
         updateGame(&game);
-        renderGrid(app.renderer, WIDTH/2-(((game.grid.size+game.grid.margin)*GRID_COLS)/2), -70, &game);
+        renderGrid(app.renderer, WIDTH/2-(((game.grid.size+game.grid.margin)*GRID_COLS)/2), -25, &game);
         SDL_RenderPresent(app.renderer);
 
         if (game.gameover) {
             quit = 1;
-            printf("Game Over");
+            printf("\nGame Over :v\n");
+            printf("score: %d\n", game.score);
+            printf("level: %d\n", game.level);
+            printf("lines cleared: %d\n", game.linesCleared);
+
         }
         
         

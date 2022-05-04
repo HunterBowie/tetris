@@ -200,8 +200,7 @@ Color T_PURPLE = {.r = 160, .g = 30 , .b = 220};
 Color *T_COLORS[6] = {&T_BLUE, &T_RED, &T_YELLOW, &T_GREEN, &T_PURPLE, &T_ORANGE};
 
 
-
-
+clock_t globalTimer = 0.0;
 
 void _renderPiece(SDL_Renderer *renderer, int x, int y, Game *game) {
     int row = game->piece.row;
@@ -327,7 +326,8 @@ void _shiftRows(Grid *grid, int row) {
 
 
 void initGame(Game *game) {
-    srand(time(NULL));
+    srand(time(0));
+    rand();
     Piece piece = _getNewPiece();
     Grid grid = {.margin = 1, .size = 25, .map = {
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
@@ -360,6 +360,9 @@ void initGame(Game *game) {
     game->score = 0;
     game->_gTimer = clock();
     game->gameover = 0;
+    game->fallingDelay = START_FALLING_DELAY;
+    game->level = 1;
+    game->linesCleared = 0;
 }
 
 void rotatePiece(Game *game, int amount) {
@@ -438,34 +441,45 @@ void updateGame(Game *game) {
             }
         }
         if (linesCleared > 0) {
+            
             switch (linesCleared) {
                 case 1:
-                    game->score += 40;
+                    game->score += 40*game->level;
                     break;
                 
                 case 2:
-                    game->score += 100;
+                    game->score += 100*game->level;
                     break;
 
                 case 3:
-                    game->score += 300;
+                    game->score += 300*game->level;
                     break;
                 
                 case 4:
-                    game->score += 1200;
+                    game->score += 1200*game->level;
                     break;
             }
-
+            game->linesCleared += linesCleared;
+            if (game->linesCleared/LINES_PER_LEVEL > game->level-1) {
+                game->level += 1;
+                game->fallingDelay -= FALLING_DELAY_CHANGE;
+                if (game->fallingDelay < FALLING_DELAY_MIN) {
+                    game->fallingDelay = FALLING_DELAY_MIN;
+                }
+            }
             
         }
 
 
     }
 
-    if ((double) (clock() - game->_gTimer) / CLOCKS_PER_SEC > FALLING_DELAY) {
+    if ((double) (clock() - game->_gTimer) / CLOCKS_PER_SEC > game->fallingDelay) {
         game->_gTimer = clock();
         game->piece.row += 1;
     }
+    // if ((double) (clock() - globalTimer) / CLOCKS_PER_SEC > .5) {
+    //     globalTimer = clock();
+    // }
 }
 
 int isGameOver(Game *game) {
