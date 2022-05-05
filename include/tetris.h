@@ -7,8 +7,8 @@
 #define GRID_COLS 10
 #define RENDER_ROW_START 3
 #define START_FALLING_DELAY  0.05
-#define FALLING_DELAY_CHANGE 0.01
-#define FALLING_DELAY_MIN    0.01
+#define FALLING_DELAY_CHANGE 0.005
+#define FALLING_DELAY_MIN    0.02
 #define LINES_PER_LEVEL 10
 
 typedef enum Shape {

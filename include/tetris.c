@@ -326,9 +326,12 @@ void _shiftRows(Grid *grid, int row) {
 
 
 void initGame(Game *game) {
+    
     srand(time(0));
     rand();
+    
     Piece piece = _getNewPiece();
+    
     Grid grid = {.margin = 1, .size = 25, .map = {
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
@@ -353,12 +356,14 @@ void initGame(Game *game) {
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE},
         {&WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE, &WHITE}
     }};
+    
     Piece nextPiece = _getNewPiece();
     game->grid = grid;
     game->piece = piece;
     game->nextPiece = nextPiece;
     game->score = 0;
     game->_gTimer = clock();
+    
     game->gameover = 0;
     game->fallingDelay = START_FALLING_DELAY;
     game->level = 1;
@@ -466,6 +471,7 @@ void updateGame(Game *game) {
                 if (game->fallingDelay < FALLING_DELAY_MIN) {
                     game->fallingDelay = FALLING_DELAY_MIN;
                 }
+                // printf("Level Up! #%d with falling delay: %f\n", game->level, game->fallingDelay);
             }
             
         }
@@ -480,10 +486,6 @@ void updateGame(Game *game) {
     // if ((double) (clock() - globalTimer) / CLOCKS_PER_SEC > .5) {
     //     globalTimer = clock();
     // }
-}
-
-int isGameOver(Game *game) {
-    return 0;
 }
 
 

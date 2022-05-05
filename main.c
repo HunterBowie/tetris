@@ -17,14 +17,24 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    playSound(&app, "music.wav");
+    
+    
     Game game;
     initGame(&game);
+
     
     int quit = 0;
     const Uint8 *
     keystate = SDL_GetKeyboardState(NULL);
+
+    
     while (!quit){
-       
+        if (app._audioData.length == 0) {
+            stopSound(&app);
+            playSound(&app, "music.wav");
+        }
+
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
