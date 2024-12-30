@@ -15,11 +15,12 @@ public class StatsBox extends JPanel {
         super();
         setBounds(x, y, STATS_BOX_WIDTH, STATS_BOX_HEIGHT);
         setOpaque(false);
+        setLayout(null);
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.CYAN);
+        g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 20));

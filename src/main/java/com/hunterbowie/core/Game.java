@@ -1,7 +1,10 @@
 package com.hunterbowie.core;
 
 import com.hunterbowie.ui.HoldBox;
+import com.hunterbowie.ui.NextPiecesBox;
 import com.hunterbowie.ui.StatsBox;
+import com.hunterbowie.util.PieceColor;
+import com.hunterbowie.util.PieceShape;
 import com.hunterbowie.util.RotateDirection;
 import com.hunterbowie.util.ShiftDirection;
 
@@ -19,6 +22,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
     private long lastUpdateTime;
     private StatsBox statsBox;
     private HoldBox holdBox;
+    private NextPiecesBox nextPiecesBox;
     private double dropDelay = INITIAL_DELAY;
 
     public Game() {
@@ -26,6 +30,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
         setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         setOpaque(false);
         setLayout(null);
+
         board = new Board(BOARD_X, BOARD_Y);
         add(board);
 
@@ -35,7 +40,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
         holdBox = new HoldBox(HOLD_BOX_X, HOLD_BOX_Y);
         add(holdBox);
 
-        initNextPieces();
+        nextPiecesBox = new NextPiecesBox(NEXT_BOX_X, NEXT_BOX_Y);
+        add(nextPiecesBox);
 
         // game update loop
         lastUpdateTime = System.nanoTime();
@@ -43,29 +49,17 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
         updateTimer.start();
     }
 
-    private void initNextPieces() {
-        nextPieces = new Piece[3];
-        Piece piece1 = Piece.random();
-        Piece piece2 = Piece.random();
-        Piece piece3 = Piece.random();
-        nextPieces[0] = piece1;
-        nextPieces[1] = piece2;
-        nextPieces[2] = piece3;
-        this.add(nextPieces[0]);
-        this.add(nextPieces[1]);
-        this.add(nextPieces[2]);
-    }
-
     /**
      * Updates the game
      */
     private void update() {
+//        System.out.println(holdBox.getPiece().getWidth() + " " + holdBox.getPiece().getHeight());
+
         long currentTime = System.nanoTime();
         double elapsedTime = (currentTime - lastUpdateTime) / 1_000_000_000.0; // Convert to seconds
 
         // moving piece down
         if (elapsedTime > dropDelay) {
-            System.out.println(board.piece.toString());
             lastUpdateTime = currentTime;
             board.pieceDown();
             updateBoardPiece();
@@ -84,6 +78,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
             else {
                 board.stampPiece();
                 int filledRows = board.numFilledRows();
+                System.out.println(filledRows);
                 if (filledRows != 0) {
                     board.shiftFilledRows(filledRows);
                     statsBox.lines += filledRows;
@@ -106,7 +101,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
                 }
                 repaint();
-                board.newRandomPiece();
+                newBoardPiece();
             }
 
         }
@@ -121,36 +116,39 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
     }
 
     private void newBoardPiece() {
-
+        board.newUnplacedPiece(nextPiecesBox.shiftOutPiece());
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // paint the held piece and next pieces
     }
 
     /**
      * Performs a swap with the board's piece and holdbox's piece
      */
     private void swapWithHold() {
-//        if (holdBox.hasPiece()) {
-//            var holdPiece = holdBox.getPiece();
-//            var boardPiece = board.getPiece();
-//            holdBox.setPiece(boardPiece);
-//            board.setPiece(holdPiece);
-//        }
-//        else {
-//            holdBox.setPiece(board.getPiece());
-//            board.newRandomPiece();
-//        }
+        if (holdBox.hasPiece()) {
+            var holdPiece = holdBox.getPiece().clone();
+            var boardPiece = board.getPiece().clone();
+            int row = boardPiece.row;
+            int col = boardPiece.col;
+            boardPiece.rotation = 0;
+            holdPiece.placeInsideBoard(row, col);
+            board.setPiece(holdPiece);
+            holdBox.newUnplacedPiece(boardPiece);
+        }
+        else {
+            var boardPiece = board.getPiece().clone();
+            boardPiece.rotation = 0;
+            holdBox.newUnplacedPiece(boardPiece);
+            newBoardPiece();
+        }
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
-
 
     @Override
     public void keyPressed(KeyEvent e) {

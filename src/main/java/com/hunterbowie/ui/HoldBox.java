@@ -14,25 +14,34 @@ public class HoldBox extends JPanel {
         super();
         setBounds(x, y, HOLD_BOX_WIDTH, HOLD_BOX_HEIGHT);
         setOpaque(false);
+        setLayout(null);
     }
 
-    public Piece popPiece() {
-        var oldPiece = piece;
+    public void setPiece(Piece newPiece) {
+        if (hasPiece()) {
+            removePiece();
+        }
+        this.piece = newPiece;
+        add(newPiece);
+        revalidate();
+        repaint();
+    }
+
+    private void removePiece() {
+        remove(piece);
         piece = null;
-        remove(oldPiece);
-        return oldPiece;
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-        this.piece.placeOutsideBoard(0, 0);
-        add(piece);
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-//        g.setColor(Color.CYAN);
-//        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+    }
+
+    public void newUnplacedPiece(Piece newPiece) {
+        newPiece.placeOutsideBoard(60, 30);
+        setPiece(newPiece);
     }
 
     /**

@@ -137,8 +137,7 @@ public class Board extends JPanel {
      */
     public void stampPiece() {
         piece.stamp(blocks);
-        remove(piece);
-        piece = null;
+        removePiece();
     }
 
     /**
@@ -156,24 +155,34 @@ public class Board extends JPanel {
         return false;
     }
 
-    /**
-     * Initializes a new random piece placed in the ghost rows
-     */
     public void newRandomPiece() {
-        piece = Piece.random();
+        newUnplacedPiece(Piece.random());
+    }
+
+    /**
+     * Initializes a new piece placed in the ghost rows
+     */
+    public void newUnplacedPiece(Piece newPiece) {
         Random r = new Random();
         int piece_row = 0;
 
-        int pieceShapeLeft = piece.farthestLeft();
+        int pieceShapeLeft = newPiece.farthestLeft();
         int col_left_bound = -pieceShapeLeft;
 
-        int pieceShapeRight = piece.farthestRight();
+        int pieceShapeRight = newPiece.farthestRight();
         int col_right_bound = COLUMNS - (pieceShapeRight + 1);
         int piece_col = r.nextInt(col_left_bound, col_right_bound);
 
-        piece.placeInsideBoard(piece_row, piece_col);
-        add(piece);
-        revalidate();
+        newPiece.placeInsideBoard(piece_row, piece_col);
+        setPiece(newPiece);
+    }
+
+    /**
+     * Remove the board's piece. Must have a piece to remove
+     */
+    public void removePiece() {
+        remove(piece);
+        piece = null;
     }
 
     /**
@@ -254,10 +263,18 @@ public class Board extends JPanel {
     return piece;
     }
 
-    public void setPiece(Piece piece) {
-        remove(this.piece);
-        this.piece = piece;
-        add(piece);
+    public void setPiece(Piece newPiece) {
+        if (hasPiece()) {
+            removePiece();
+        }
+        this.piece = newPiece;
+        add(newPiece);
         revalidate();
+        repaint();
     }
+
+    private boolean hasPiece() {
+        return piece != null;
+    }
+
 }

@@ -17,7 +17,7 @@ import static com.hunterbowie.util.Constants.CELL_WIDTH;
 public class Piece extends JPanel {
     public PieceShape pieceShape;
     public PieceColor pieceColor;
-    private int rotation;
+    public int rotation;
     public Integer x;
     public Integer y;
     public Integer row;
@@ -120,14 +120,6 @@ public class Piece extends JPanel {
                 col++;
             }
         }
-        else {
-            if (direction == ShiftDirection.LEFT) {
-                x -= (CELL_WIDTH + CELL_MARGIN);
-            }
-            else if (direction == ShiftDirection.RIGHT) {
-                x += (CELL_WIDTH + CELL_MARGIN);
-            }
-        }
         updateBonds();
         repaint();
     }
@@ -186,7 +178,6 @@ public class Piece extends JPanel {
         };
 
         return new Piece(shape, color);
-//        return new Piece(PieceShape.I_PIECE, PieceColor.PINK);
     }
 
     /**
